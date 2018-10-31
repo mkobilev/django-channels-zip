@@ -10,12 +10,12 @@ export interface Message {
 
 @Injectable()
 export class ChatService {
-	public messages: Subject<Message>;
+	public messages: Subject<any>;
 
 	constructor(wsService: WebsocketService) {
-		this.messages = <Subject<Message>>wsService
+		this.messages = <Subject<any>>wsService
 			.connect(WS_URL)
-			.map((response: MessageEvent): Message => {
+			.map((response: MessageEvent): any => {
         // console.log('response.data', response.data)
         try {
           let data = JSON.parse(response.data);

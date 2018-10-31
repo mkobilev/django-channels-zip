@@ -1,12 +1,12 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
 import os
-import zlib
+import gzip
 
-with open(os.getcwd() + '/static/products100.json', "r", encoding='UTF-8') as infile:
+with open(os.getcwd() + '/static/products100.json', 'r') as infile:
+
     json_file = json.load(infile)
-
-    json_file_gzip = zlib.compress(bytes(json.dumps(json_file), encoding='utf-8'))
+    json_file_gzip = gzip.compress( bytes(json.dumps(json_file), encoding='utf-8') )
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -44,10 +44,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
             # Send message to room group
             print('getCompressedJson')
             print(len(json_file_gzip))
-            print(len(json_file_gzip.decode("utf-8", "ignore")))
-            print(len(json_file_gzip.decode("utf-8", "replace")))
 
-            await self.send(text_data=json_file_gzip.decode("utf-8", "replace"))
+            await self.send(bytes_data=json_file_gzip)
 
             # await self.channel_layer.group_send(self.room_group_name, { 'type': 'json_message', 'message': ''})
 
