@@ -8,11 +8,21 @@
 
 <ion-content padding>
 
-  <h1>
-  </h1>
 
-  <button (click)="getJson()">get Json</button>
+  <div>
+    execute time
+    <span id="time"> 0 </span>
+  </div>
 
-  <button (click)="getCompressedJson()">get Compressed Json</button>
+  <div>
+    <button ion-button (click)="getJson()">get Json</button>
+  </div>
+
+  <div>
+    <button ion-button (click)="getCompressedJson()">get Compressed Json</button>
+
+  </div>
+
+
 
 </ion-content>
